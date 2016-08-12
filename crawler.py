@@ -5,9 +5,9 @@ class SummitPoster(scrapy.Spider):
     name = 'summitposter'
     base = 'http://www.summitpost.org/mountain/rock/p'
     start_urls = ['http://www.summitpost.org/mountain/rock/']
-    for i in range(2, 275): ## get all of the pages
-        url = base + str(i)
-        start_urls.append(url)
+    # for i in range(2, 3): ## get all of the pages
+    #     url = base + str(i)
+    #     start_urls.append(url)
 
     def parse(self, response):
         for href in response.xpath("//a[(contains(@style,'font-weight: bold'))]//@href").extract(): #get only bold links
@@ -87,7 +87,7 @@ class SummitPoster(scrapy.Spider):
 
 def stripTag(string):
     s = re.sub(r'<.+?>', '', string)
-    key = "".join(s.split())
+    key = " ".join(s.split())
     return key
 
 def splitTag(string, char):
