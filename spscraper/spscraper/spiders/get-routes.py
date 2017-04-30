@@ -9,6 +9,7 @@ def cleanList(lst):
         except:
             pass
         i += 1
+    lst = filter(None, lst)
     return lst
 
 
@@ -48,7 +49,20 @@ class SPSpider(scrapy.Spider):
                 parentURLs = linkURL
                 attributes = row.css(".srch_results_rht::text").extract()
                 attributes = cleanList(attributes)
-                del attributes[:3]
+
+                keys = row.css(".srch_results_rht b").extract()
+                keys = cleanList(keys)
+                keys.insert(0, 'created')
+                keys.insert(1, 'location')
+                q = 0
+                while q < len(keys):
+                    key = keys[q]
+                    key = key.replace("<b>", "")
+                    key = key.replace("</b>", "")
+                    keys[q] = key
+                    q += 1
+                attributes = dict(zip(keys, attributes))
+
                 element = {
                     'title': elementTitle,
                     'author' : author,

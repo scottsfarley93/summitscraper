@@ -22,10 +22,10 @@ def generateStartURLs(base, max):
     return urls
 
 class SPSpider(scrapy.Spider):
-    name = "sp.tr"
+    name = "sp.getmountains"
 
     def start_requests(self):
-        urls =generateStartURLs('http://www.summitpost.org/trip-report/', 179)
+        urls =generateStartURLs('http://www.summitpost.org/mountain/rock/', 281)
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
 
